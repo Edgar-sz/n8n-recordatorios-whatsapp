@@ -1,0 +1,938 @@
+{
+  "name": "F_recordatorio_imagenes",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -96,
+        0
+      ],
+      "id": "066101fe-8fee-4638-9314-846c9e61b64a",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        272,
+        -160
+      ],
+      "id": "aa2d8896-a230-48bb-ba01-59b18997699d",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "87df10c5-6142-4f22-a9a1-dca3158af115",
+              "leftValue": "={{ $json['Teléfono'].toString() }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        432,
+        -480
+      ],
+      "id": "3cc5e73f-9552-4440-9b74-8f39479af143",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "amount": "={{ $json.delay_sec }}"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1936,
+        -400
+      ],
+      "id": "0f84c83e-2aba-4284-8213-f4cecaa4d012",
+      "name": "Wait",
+      "webhookId": "218a1097-efa1-4e78-8b38-503c568c8d49"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1i0c4f2XSC_9HZH33uCQWectXMF45IhDvp_o2iujjd6U",
+          "mode": "list",
+          "cachedResultName": "Datos usuarios",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1i0c4f2XSC_9HZH33uCQWectXMF45IhDvp_o2iujjd6U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Datos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1i0c4f2XSC_9HZH33uCQWectXMF45IhDvp_o2iujjd6U/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        96,
+        0
+      ],
+      "id": "c9e546a8-a2a6-443e-9ff2-cab9ccc152a7",
+      "name": "Obtener datos",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "UOWPZoYPApny206m",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1i0c4f2XSC_9HZH33uCQWectXMF45IhDvp_o2iujjd6U",
+          "mode": "list",
+          "cachedResultName": "Datos usuarios",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1i0c4f2XSC_9HZH33uCQWectXMF45IhDvp_o2iujjd6U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Datos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1i0c4f2XSC_9HZH33uCQWectXMF45IhDvp_o2iujjd6U/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Estado recordatorio": "Error",
+            "ID": "={{ $json.ID }}"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Usuario",
+              "displayName": "Usuario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Teléfono",
+              "displayName": "Teléfono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Caption",
+              "displayName": "Caption",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Estado recordatorio",
+              "displayName": "Estado recordatorio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Imagenes",
+              "displayName": "Imagenes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        736,
+        -544
+      ],
+      "id": "e8966df9-87ec-4923-8eef-9ea4f9de894a",
+      "name": "Actualizar BD",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "UOWPZoYPApny206m",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1i0c4f2XSC_9HZH33uCQWectXMF45IhDvp_o2iujjd6U",
+          "mode": "list",
+          "cachedResultName": "Datos usuarios",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1i0c4f2XSC_9HZH33uCQWectXMF45IhDvp_o2iujjd6U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Datos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1i0c4f2XSC_9HZH33uCQWectXMF45IhDvp_o2iujjd6U/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{ $('If').item.json.ID }}",
+            "Estado recordatorio": "=Enviado el {{ $json.fecha_hora_peru }}"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Usuario",
+              "displayName": "Usuario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Teléfono",
+              "displayName": "Teléfono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Caption",
+              "displayName": "Caption",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Estado recordatorio",
+              "displayName": "Estado recordatorio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Imagenes",
+              "displayName": "Imagenes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        1376,
+        -384
+      ],
+      "id": "47f5f9ed-e2b0-49cc-9851-a47fae028d96",
+      "name": "Actualizar BD1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "UOWPZoYPApny206m",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1i0c4f2XSC_9HZH33uCQWectXMF45IhDvp_o2iujjd6U",
+          "mode": "list",
+          "cachedResultName": "Datos usuarios",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1i0c4f2XSC_9HZH33uCQWectXMF45IhDvp_o2iujjd6U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Datos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1i0c4f2XSC_9HZH33uCQWectXMF45IhDvp_o2iujjd6U/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{ $('If').item.json.ID }}",
+            "Estado recordatorio": "Error"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Usuario",
+              "displayName": "Usuario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Teléfono",
+              "displayName": "Teléfono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Caption",
+              "displayName": "Caption",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Estado recordatorio",
+              "displayName": "Estado recordatorio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Imagenes",
+              "displayName": "Imagenes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        1216,
+        -128
+      ],
+      "id": "f58e6177-5212-40bd-a0fd-2f1451aefb65",
+      "name": "Actualizar BD2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "UOWPZoYPApny206m",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "65294f2e-12f8-405b-ba2d-1f04f547dec4",
+              "name": "Caption",
+              "value": "={{ $json.Caption }}",
+              "type": "string"
+            },
+            {
+              "id": "d37197bb-b665-4397-828a-231dbb9a8c12",
+              "name": "Numero",
+              "value": "={{ $json['Teléfono'] }}",
+              "type": "string"
+            },
+            {
+              "id": "7e8396a1-69cf-41fc-b28e-82c9ca5bf985",
+              "name": "Imagen",
+              "value": "={{ $json.Imagenes }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        752,
+        -320
+      ],
+      "id": "c0ebafd3-21dc-4055-83c0-e1efb3e9ec40",
+      "name": "Definir variables"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://evolutionapo-evolution-api.vhphhd.easypanel.host/message/sendText/Chatbot",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "C8A8DFDD1BF2-4AA8-B721-24600106A900"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "51928905935@s,whatsapp.net"
+            },
+            {
+              "name": "text",
+              "value": "=Hubo un error al enviar el recordatorio al usuario  {{ $('Obtener datos').item.json.Usuario }} debido a que no cuenta con un numero registrado en la base de datos.\n"
+            },
+            {
+              "name": "delay",
+              "value": "={{2000}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        976,
+        -560
+      ],
+      "id": "32111a6c-332e-4124-9387-2fa79401bb00",
+      "name": "Mensaje de error"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://evolutionapo-evolution-api.vhphhd.easypanel.host/message/sendText/Chatbot",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "C8A8DFDD1BF2-4AA8-B721-24600106A900"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "51928905935@s.whatsapp.net"
+            },
+            {
+              "name": "text",
+              "value": "=Hubo un error al enviar el recordatorio al usuario {{ $('Obtener datos').item.json.Usuario }} debido a que no se encontró un numero registrado en la base de datos."
+            },
+            {
+              "name": "delay",
+              "value": "={{2000}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1424,
+        -128
+      ],
+      "id": "62930d03-4e8b-4a87-8f72-0344cbf10b15",
+      "name": "Mensaje de error1"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "operation": "send-image",
+        "instanceName": "Chatbot",
+        "remoteJid": "=51{{ $json.Numero }}@s.whatsapp.net",
+        "media": "={{ $json.Imagen }}",
+        "caption": "={{ $json.Caption }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        944,
+        -304
+      ],
+      "id": "068f3234-5b28-4e32-aaac-791b611656e1",
+      "name": "Mensaje recordatorio",
+      "credentials": {
+        "evolutionApi": {
+          "id": "a3VoDWsEGwB67PMg",
+          "name": "Evolution account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Rango de espera en segundos\nconst min = 4.0;\nconst max = 8.0;\n\n// Genera un número aleatorio entre min y max, con 2 decimales\nconst delay = (Math.random() * (max - min) + min).toFixed(2);\n\n// Retorna el valor como número decimal en la propiedad 'delay_sec'\nreturn [{\n  json: {\n    delay_sec: parseFloat(delay)\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1744,
+        -400
+      ],
+      "id": "b66e1b38-e169-4653-90e2-d17a85ab8f19",
+      "name": "Tiempo variable"
+    },
+    {
+      "parameters": {
+        "content": "Convertir el numero a string.",
+        "height": 80,
+        "width": 208,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        368,
+        -576
+      ],
+      "typeVersion": 1,
+      "id": "6a607983-4031-418e-9c14-af1cbce5a32a",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "Actualiza el estado del recordatorio en la BD.",
+        "height": 80,
+        "width": 208
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        672,
+        -640
+      ],
+      "typeVersion": 1,
+      "id": "c1d70271-c6db-4d6e-8362-b57f9dfbbb06",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "Actualiza el estado del recordatorio en la BD.",
+        "height": 80,
+        "width": 208
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1328,
+        -240
+      ],
+      "typeVersion": 1,
+      "id": "2a127c89-657d-4b91-b323-fb2ff4ffc3ad",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "Actualiza el estado del recordatorio en la BD.",
+        "height": 80,
+        "width": 208
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1168,
+        32
+      ],
+      "typeVersion": 1,
+      "id": "3452fb03-49d0-43be-9c39-be46364407a1",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "Se implementa un tiempo de espera aleatorio para reducir el riesgo de bloqueo por parte de WhatsApp, evitando que el flujo sea detectado como automatizado o masivo, lo cual infringe sus políticas de uso.",
+        "height": 144,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1776,
+        -560
+      ],
+      "typeVersion": 1,
+      "id": "0bbe90ac-d4ad-437a-818b-3243b96ddfd9",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const ahora = new Date();\n\n// Convertir a hora Perú (UTC-5)\nconst horaPeru = new Date(ahora.getTime() - 5 * 60 * 60 * 1000);\n\n// Formato: DD/MM/YYYY HH:mm:ss\nconst dia = String(horaPeru.getDate()).padStart(2, '0');\nconst mes = String(horaPeru.getMonth() + 1).padStart(2, '0');\nconst anio = horaPeru.getFullYear();\nconst horas = String(horaPeru.getHours()).padStart(2, '0');\nconst minutos = String(horaPeru.getMinutes()).padStart(2, '0');\nconst segundos = String(horaPeru.getSeconds()).padStart(2, '0');\n\nconst fechaHoraPeru = `${dia}/${mes}/${anio} ${horas}:${minutos}:${segundos}`;\n\nreturn [\n  {\n    json: {\n      fecha_hora_peru: fechaHoraPeru\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1200,
+        -400
+      ],
+      "id": "14658161-9ee8-4bac-ba7a-21339bc215cb",
+      "name": "Fecha y hora actual (Perú)1"
+    },
+    {
+      "parameters": {
+        "content": "Se aplica una corrección horaria de -5 horas para ajustar la fecha y hora del servidor (ubicado en Brasil) a la zona horaria de Perú (UTC-5). Esto asegura que los registros y mensajes se generen con la hora local correcta.",
+        "height": 192,
+        "width": 208,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1136,
+        -608
+      ],
+      "typeVersion": 1,
+      "id": "5a0ae3f1-3c94-4f5d-926c-a6ed236c69bb",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "Las imágenes deben de estar publicadas en la we.",
+        "height": 80
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        48,
+        160
+      ],
+      "typeVersion": 1,
+      "id": "df1cf426-446c-4cf9-b0b0-75c5140fc90e",
+      "name": "Sticky Note2"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Obtener datos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Actualizar BD",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Definir variables",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener datos": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Actualizar BD": {
+      "main": [
+        [
+          {
+            "node": "Mensaje de error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Actualizar BD1": {
+      "main": [
+        [
+          {
+            "node": "Tiempo variable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Actualizar BD2": {
+      "main": [
+        [
+          {
+            "node": "Mensaje de error1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Definir variables": {
+      "main": [
+        [
+          {
+            "node": "Mensaje recordatorio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mensaje de error": {
+      "main": [
+        [
+          {
+            "node": "Tiempo variable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mensaje de error1": {
+      "main": [
+        [
+          {
+            "node": "Tiempo variable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mensaje recordatorio": {
+      "main": [
+        [
+          {
+            "node": "Fecha y hora actual (Perú)1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Actualizar BD2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tiempo variable": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fecha y hora actual (Perú)1": {
+      "main": [
+        [
+          {
+            "node": "Actualizar BD1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a1d349d2-cf48-4e1c-b429-659fbdcf8963",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0fe3d5bb008e5b96b18c215374c11f23ad8bf5bbd0a5b6ebd2b2dd15ce224b38"
+  },
+  "id": "CvJ0Yx2TvdSWlK6A",
+  "tags": [
+    {
+      "name": "OK",
+      "id": "5XMGm7ErEv1GfomW",
+      "createdAt": "2025-07-31T03:49:56.053Z",
+      "updatedAt": "2025-07-31T03:49:56.053Z"
+    }
+  ]
+}
