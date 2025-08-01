@@ -23,4 +23,4 @@ Cada flujo busca garantizar una comunicación efectiva y automatizada con los us
 
 ## 📎 Recursos
 
-- [🎥 YouTube - Introducción al flujo](https://www.youtube.com/watch?v=5mWXvlFDapU)
+- [🎥 YouTube - Flujo de envío de imágenes](https://www.youtube.com/watch?v=5mWXvlFDapU)
